@@ -9,7 +9,6 @@ import java.util.Scanner;
 
         public static void main(String[] args) {
 
-
             ArrayList<Student> students = new ArrayList<Student>();//create an arraylist of students
             //add students to the arraylist
             students.add(new Student("Alan", "Cray", 12, CourseType.CS, 8, 1));
@@ -36,7 +35,6 @@ import java.util.Scanner;
 
 
         public static void menu(ArrayList<Student> students) {
-
             //print the option menu
             System.out.println("Please Select the function you want to perform: ");
             System.out.println("1. Add a student");

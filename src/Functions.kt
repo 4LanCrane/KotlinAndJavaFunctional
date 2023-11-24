@@ -3,12 +3,17 @@
 
 
 
+
   // function to get student by id
     fun getStudentById(StudentList: ArrayList<Student>) {
         println("Enter the student ID of the student you wish to find")
-        val studentId = readLine()!!.toInt()
-        StudentList.forEach { if (it.studentId == studentId) println(it) }
-
+        val studentId = readLine()!!
+        if (isAnInt(studentId)) {
+            StudentList.forEach { if (it.studentId == studentId.toInt()) println(it) }
+        } else {
+            println("Invalid input")
+            getStudentById(StudentList)
+        }
     }
 
 
@@ -66,14 +71,34 @@
     fun addStudent(StudentList: ArrayList<Student>) {
         println("Enter the first name of the student you wish to add")
         val firstName = readLine()!!
+        if(!isAString(firstName)) {
+            println("Invalid input")
+            addStudent(StudentList)
+        }
         println("Enter the surname of the student you wish to add")
         val surname = readLine()!!
+        if(!isAString(surname)) {
+            println("Invalid input")
+            addStudent(StudentList)
+        }
         println("Enter the age of the student you wish to add")
         val age = readLine()!!.toInt()
+        if(!isAnInt(age.toString())) {
+            println("Invalid input")
+            addStudent(StudentList)
+        }
         println("Enter the course of the student you wish to add")
         val course = readLine()!!
+        if(!isCourseTypeValid(course)) {
+            println("Invalid input")
+            addStudent(StudentList)
+        }
         println("Enter the grade of the student you wish to add")
         val grade = readLine()!!.toInt()
+        if(!isAnInt(grade.toString())) {
+            println("Invalid input")
+            addStudent(StudentList)
+        }
         println("Enter the student ID of the student you wish to add")
         val studentId = StudentList.size + 1
         StudentList.add(Student(firstName, surname, age, CourseType.valueOf(course), grade, studentId))
@@ -90,26 +115,59 @@
 //function to remove student by id
     fun removeStudent(StudentList: ArrayList<Student>) {
         println("Enter the student ID of the student you wish to remove")
-        val studentId = readLine()!!.toInt()
-        StudentList.removeIf { it.studentId == studentId }
-
+        val studentId = readLine()!!
+        if (isAnInt(studentId)) {
+            StudentList.removeIf { it.studentId == studentId.toInt() }
+        } else {
+            println("Invalid input")
+            removeStudent(StudentList)
+        }
     }
 
 //function that gets student course and sorts by grade
     fun getStudentCourseAndSortByGrade(StudentList: ArrayList<Student>) {
         println("Enter the course of the student you wish to find")
         val course = readLine()!!
-        StudentList.filter { it.courseType == CourseType.valueOf(course) }
-            .sortedBy { it.grade }
-            .forEach { println(it) }
+        if(isCourseTypeValid(course)) {
+            StudentList.filter { it.courseType == CourseType.valueOf(course) }
+                .sortedBy { it.grade }
+                .forEach { println(it) }
+        } else {
+            println("Invalid course type")
+            getStudentCourseAndSortByGrade(StudentList)
+        }
 
     }
 
 
+  fun isAnInt(input: String): Boolean {
+        return try {
+            input.toInt()
+            true
+        } catch (e: NumberFormatException) {
+            false
+        }
+    }
 
 
+  fun isCourseTypeValid(courseType: String): Boolean {
+      return try {
+          CourseType.valueOf(courseType)
+          true
+      } catch (e: IllegalArgumentException) {
+          false }
+  }
 
 
+//function to check user input contains only letters
+    fun isAString(input: String): Boolean {
+        return try {
+            input.toInt()
+            false
+        } catch (e: NumberFormatException) {
+            true
+        }
+    }
 
 
 
