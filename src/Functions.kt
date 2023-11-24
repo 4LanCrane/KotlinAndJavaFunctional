@@ -5,12 +5,7 @@ import java.util.function.Predicate
     fun getStudentById(StudentList: ArrayList<Student>) {
         println("Enter the student ID of the student you wish to find")
         val studentId = readLine()!!
-        if (isAnInt(studentId)) {
             StudentList.forEach { if (it.studentId == studentId.toInt()) println(it) }
-        } else {
-            println("Invalid input")
-            getStudentById(StudentList)
-        }
     }
 
 
