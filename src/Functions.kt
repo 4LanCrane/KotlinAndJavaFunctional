@@ -1,10 +1,7 @@
+import java.util.function.Predicate
 
 
-
-
-
-
-  // function to get student by id
+// function to get student by id
     fun getStudentById(StudentList: ArrayList<Student>) {
         println("Enter the student ID of the student you wish to find")
         val studentId = readLine()!!
@@ -69,46 +66,54 @@
 
     //function to add a student
     fun addStudent(StudentList: ArrayList<Student>) {
-        println("Enter the first name of the student you wish to add")
-        val firstName = readLine()!!
-        if(!isAString(firstName)) {
-            println("Invalid input")
-            addStudent(StudentList)
-        }
-        println("Enter the surname of the student you wish to add")
-        val surname = readLine()!!
-        if(!isAString(surname)) {
-            println("Invalid input")
-            addStudent(StudentList)
-        }
-        println("Enter the age of the student you wish to add")
-        val age = readLine()!!.toInt()
-        if(!isAnInt(age.toString())) {
-            println("Invalid input")
-            addStudent(StudentList)
-        }
-        println("Enter the course of the student you wish to add")
-        val course = readLine()!!
-        if(!isCourseTypeValid(course)) {
-            println("Invalid input")
-            addStudent(StudentList)
-        }
-        println("Enter the grade of the student you wish to add")
-        val grade = readLine()!!.toInt()
-        if(!isAnInt(grade.toString())) {
-            println("Invalid input")
-            addStudent(StudentList)
-        }
-        println("Enter the student ID of the student you wish to add")
+
+        //get the first name of the student to add usubg getUserInput function
+        val firstName = getUserInput("Enter the first name of the student you wish to add", isString)
+
+          //get the surname of the student to add usubg getUserInput function
+        val surname = getUserInput("Enter the surname of the student you wish to add", isString)
+
+             //get the age of the student to add usubg getUserInput function
+        val age = getUserInput("Enter the age of the student you wish to add", isInt).toInt()
+
+             //get the course of the student to add usubg getUserInput function
+        val course = getUserInput("Enter the course of the student you wish to add", isCourseType)
+
+             //get the grade of the student to add usubg getUserInput function
+        val grade = getUserInput("Enter the grade of the student you wish to add", isInt).toInt()
+
+             //get the student id of the student to add usubg getUserInput function
         val studentId = StudentList.size + 1
         StudentList.add(Student(firstName, surname, age, CourseType.valueOf(course), grade, studentId))
+
+
 
     }
 
 
+//function to get user input with parameters string prompt and predicate function to check if input is valid
+    fun getUserInput(prompt: String, predicate: Predicate<String>): String {
+        println(prompt)
+        val input = readLine()!!
+        return if (predicate.test(input)) {
+            input
+        } else {
+            println("Invalid input")
+            getUserInput(prompt, predicate)
+        }
+    }
+
+//predicate function to check if input is a string
+    val isString: Predicate<String> = Predicate { input -> isAString(input) }
+
+//predicate function to check if input is an integer
+    val isInt: Predicate<String> = Predicate { input -> isAnInt(input) }
+//predicate function to check if input is a course type
+    val isCourseType: Predicate<String> = Predicate { input -> isCourseTypeValid(input) }
+
+
     fun printAllStudents(StudentList: ArrayList<Student>) {
         StudentList.forEach { println(it) }
-
     }
 
 
