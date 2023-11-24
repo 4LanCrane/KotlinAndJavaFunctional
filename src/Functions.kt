@@ -46,7 +46,6 @@ import java.util.function.Predicate
         val course = readLine()!!
         StudentList.filter { it.courseType == CourseType.valueOf(course)  }
             .forEach { println(it) }
-
     }
 
 
@@ -115,20 +114,22 @@ import java.util.function.Predicate
     }
 
 //function that gets student course and sorts by grade
-    fun getStudentCourseAndSortByGrade(StudentList: ArrayList<Student>) {
+    fun getStudentCourseAndSortByGradeAsc(StudentList: ArrayList<Student>) {
         println("Enter the course of the student you wish to find")
         val course = readLine()!!
-        if(isCourseTypeValid(course)) {
             StudentList.filter { it.courseType == CourseType.valueOf(course) }
                 .sortedBy { it.grade }
                 .forEach { println(it) }
-        } else {
-            println("Invalid course type")
-            getStudentCourseAndSortByGrade(StudentList)
-        }
-
     }
 
+//function that gets student course and sorts by grade descending
+    fun getStudentCourseAndSortByGrade(StudentList: ArrayList<Student>) {
+        println("Enter the course of the student you wish to find")
+        val course = readLine()!!
+        StudentList.filter { it.courseType == CourseType.valueOf(course) }
+            .sortedByDescending { it.grade }
+            .forEach { println(it) }
+    }
 
   fun isAnInt(input: String): Boolean {
         return try {
