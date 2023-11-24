@@ -54,6 +54,13 @@ import java.util.function.Predicate
 
     }
 
+
+// print students grouped by course
+    fun printStudentsGroupedByCourse(StudentList: ArrayList<Student>) {
+        StudentList.groupBy { it.courseType }
+            .forEach { println(it) }
+    }
+
     // function to get student by age
     fun getStudentByAge(StudentList: ArrayList<Student>) {
         println("Enter the age of the student you wish to find")
@@ -66,28 +73,13 @@ import java.util.function.Predicate
 
     //function to add a student
     fun addStudent(StudentList: ArrayList<Student>) {
-
-        //get the first name of the student to add usubg getUserInput function
         val firstName = getUserInput("Enter the first name of the student you wish to add", isString)
-
-          //get the surname of the student to add usubg getUserInput function
         val surname = getUserInput("Enter the surname of the student you wish to add", isString)
-
-             //get the age of the student to add usubg getUserInput function
         val age = getUserInput("Enter the age of the student you wish to add", isInt).toInt()
-
-             //get the course of the student to add usubg getUserInput function
         val course = getUserInput("Enter the course of the student you wish to add", isCourseType)
-
-             //get the grade of the student to add usubg getUserInput function
         val grade = getUserInput("Enter the grade of the student you wish to add", isInt).toInt()
-
-             //get the student id of the student to add usubg getUserInput function
         val studentId = StudentList.size + 1
         StudentList.add(Student(firstName, surname, age, CourseType.valueOf(course), grade, studentId))
-
-
-
     }
 
 
@@ -103,12 +95,10 @@ import java.util.function.Predicate
         }
     }
 
-//predicate function to check if input is a string
     val isString: Predicate<String> = Predicate { input -> isAString(input) }
 
-//predicate function to check if input is an integer
     val isInt: Predicate<String> = Predicate { input -> isAnInt(input) }
-//predicate function to check if input is a course type
+
     val isCourseType: Predicate<String> = Predicate { input -> isCourseTypeValid(input) }
 
 

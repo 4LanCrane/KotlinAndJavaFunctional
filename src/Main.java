@@ -67,7 +67,7 @@ import java.util.Scanner;
                     break;
 
                 case 4:
-                   FunctionsKt.getStudentByCourse(students);//call the getCourseAndSortByGrade method from student class
+                   FunctionsKt.printStudentsGroupedByCourse(students);//call the getCourseAndSortByGrade method from student class
                     enter();//call the enter method to pause the program
                     menu(students);//call the menu method
                     break;
