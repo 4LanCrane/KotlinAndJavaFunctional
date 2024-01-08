@@ -20,6 +20,7 @@ import java.util.function.Predicate
 
 
 
+
     // function to get student by first letter of first name
     fun getStudentByFirstLetter(StudentList: ArrayList<Student>) {
         println("Enter the first letter of the first name of the student you wish to find")
@@ -89,10 +90,8 @@ import java.util.function.Predicate
         }
     }
 
-    val isString: Predicate<String> = Predicate { input -> isAString(input) }
-
-    val isInt: Predicate<String> = Predicate { input -> isAnInt(input) }
-
+    val isString: Predicate<String> = Predicate { input -> doesNotContainDigit(input) }
+    val isInt: Predicate<String> = Predicate { input -> !doesNotContainDigit(input) }
     val isCourseType: Predicate<String> = Predicate { input -> isCourseTypeValid(input) }
 
 
@@ -105,13 +104,25 @@ import java.util.function.Predicate
     fun removeStudent(StudentList: ArrayList<Student>) {
         println("Enter the student ID of the student you wish to remove")
         val studentId = readLine()!!
-        if (isAnInt(studentId)) {
+        if (!doesNotContainDigit(studentId)) {
             StudentList.removeIf { it.studentId == studentId.toInt() }
         } else {
             println("Invalid input")
             removeStudent(StudentList)
         }
     }
+
+
+//remove student with no checks
+    fun removeAStudent(StudentList: ArrayList<Student>) {
+        println("Enter the student ID of the student you wish to remove")
+        val input = readln()
+        StudentList.removeIf { it.studentId == input.toInt() }
+    }
+
+
+
+
 
 //function that gets student course and sorts by grade
     fun getStudentCourseAndSortByGradeAsc(StudentList: ArrayList<Student>) {
@@ -131,14 +142,6 @@ import java.util.function.Predicate
             .forEach { println(it) }
     }
 
-  fun isAnInt(input: String): Boolean {
-        return try {
-            input.toInt()
-            true
-        } catch (e: NumberFormatException) {
-            false
-        }
-    }
 
 
   fun isCourseTypeValid(courseType: String): Boolean {
@@ -151,14 +154,9 @@ import java.util.function.Predicate
 
 
 //function to check user input contains only letters
-    fun isAString(input: String): Boolean {
-        return try {
-            input.toInt()
-            false
-        } catch (e: NumberFormatException) {
-            true
-        }
-    }
+ fun doesNotContainDigit(input: String): Boolean {
+    return !input.matches(".*\\d.*".toRegex())
+}
 
 
 
